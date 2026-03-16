@@ -1,45 +1,43 @@
-//your JS code here. If required.
-// Get elements
+const form = document.getElementById("book-form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const isbn = document.getElementById("isbn");
-const submitBtn = document.getElementById("submit");
 const bookList = document.getElementById("book-list");
 
-// Add book
-submitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+form.addEventListener("submit", function(e) {
 
-  const titleVal = title.value.trim();
-  const authorVal = author.value.trim();
-  const isbnVal = isbn.value.trim();
+e.preventDefault();
 
-  if (titleVal === "" || authorVal === "" || isbnVal === "") {
-    alert("Please fill all fields");
-    return;
-  }
+const titleVal = title.value.trim();
+const authorVal = author.value.trim();
+const isbnVal = isbn.value.trim();
 
-  // Create row
-  const row = document.createElement("tr");
+if(titleVal === "" || authorVal === "" || isbnVal === "") {
+alert("Please fill all fields");
+return;
+}
 
-  row.innerHTML = `
-    <td>${titleVal}</td>
-    <td>${authorVal}</td>
-    <td>${isbnVal}</td>
-    <td><button class="btn btn-danger btn-sm delete">X</button></td>
-  `;
+const row = document.createElement("tr");
 
-  bookList.appendChild(row);
+row.innerHTML = `
+<td>${titleVal}</td>
+<td>${authorVal}</td>
+<td>${isbnVal}</td>
+<td><a href="#" class="delete">X</a></td>
+`;
 
-  // Clear input fields
-  title.value = "";
-  author.value = "";
-  isbn.value = "";
+bookList.appendChild(row);
+
+title.value = "";
+author.value = "";
+isbn.value = "";
+
 });
 
-// Delete book
-bookList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete")) {
-    e.target.parentElement.parentElement.remove();
-  }
+bookList.addEventListener("click", function(e){
+
+if(e.target.classList.contains("delete")){
+e.target.parentElement.parentElement.remove();
+}
+
 });
