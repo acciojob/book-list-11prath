@@ -1,43 +1,43 @@
-const form = document.getElementById("book-form");
+// Get elements
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const isbn = document.getElementById("isbn");
+const submitBtn = document.getElementById("submit");
 const bookList = document.getElementById("book-list");
 
-form.addEventListener("submit", function(e) {
+// Add book
+submitBtn.addEventListener("click", function(e) {
+  e.preventDefault();
 
-e.preventDefault();
+  const titleVal = title.value.trim();
+  const authorVal = author.value.trim();
+  const isbnVal = isbn.value.trim();
 
-const titleVal = title.value.trim();
-const authorVal = author.value.trim();
-const isbnVal = isbn.value.trim();
+  if (titleVal === "" || authorVal === "" || isbnVal === "") {
+    return;
+  }
 
-if(titleVal === "" || authorVal === "" || isbnVal === "") {
-alert("Please fill all fields");
-return;
-}
+  // create row
+  const row = document.createElement("tr");
 
-const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${titleVal}</td>
+    <td>${authorVal}</td>
+    <td>${isbnVal}</td>
+    <td><a href="#" class="delete">X</a></td>
+  `;
 
-row.innerHTML = `
-<td>${titleVal}</td>
-<td>${authorVal}</td>
-<td>${isbnVal}</td>
-<td><a href="#" class="delete">X</a></td>
-`;
+  bookList.appendChild(row);
 
-bookList.appendChild(row);
-
-title.value = "";
-author.value = "";
-isbn.value = "";
-
+  // clear fields
+  title.value = "";
+  author.value = "";
+  isbn.value = "";
 });
 
-bookList.addEventListener("click", function(e){
-
-if(e.target.classList.contains("delete")){
-e.target.parentElement.parentElement.remove();
-}
-
+// delete row
+bookList.addEventListener("click", function(e) {
+  if (e.target.classList.contains("delete")) {
+    e.target.parentElement.parentElement.remove();
+  }
 });
